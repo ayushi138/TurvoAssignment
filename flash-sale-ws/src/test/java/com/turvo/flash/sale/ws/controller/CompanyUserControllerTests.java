@@ -53,11 +53,16 @@ public class CompanyUserControllerTests {
 	@Test
 	public void registerUser() {
 		try {
-		RegisterCompanyUserModel registerDto = new RegisterCompanyUserModel();
-		registerDto.setUser("test");
-		registerDto.setPassword("!@#$");
-		Mockito.when(companyUserService.registerCompanyUser()).thenReturn(true);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/company-user/register",registerDto).accept(MediaType.APPLICATION_JSON);
+		RegisterCompanyUserModel registerCompanyUserModel = new RegisterCompanyUserModel();
+		registerCompanyUserModel.setUser("test");
+		registerCompanyUserModel.setPassword("!@#$");
+		
+		RegisterCompanyUserDTO registerCompanyUserDTO = new RegisterCompanyUserDTO();
+		registerCompanyUserDTO.setUser("test");
+		registerCompanyUserDTO.setPassword("!@#$");
+		
+		Mockito.when(companyUserService.registerCompanyUser(registerCompanyUserDTO)).thenReturn(true);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/company-user/register",registerCompanyUserModel).accept(MediaType.APPLICATION_JSON);
 		ResultActions actions = mockMvc.perform(requestBuilder);
 		actions.andExpect(MockMvcResultMatchers.status().isOk());
 		actions.andExpect(content().json("{\n" + 
@@ -66,7 +71,7 @@ public class CompanyUserControllerTests {
 				"}"));
 		}
 		catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 	
