@@ -1,6 +1,7 @@
 package com.turvo.flash.sale.ws.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.ArgumentMatchers.any;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turvo.flash.sale.ws.dto.RegisterCompanyUserDTO;
 import com.turvo.flash.sale.ws.model.request.RegisterCompanyUserModel;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
@@ -53,16 +55,13 @@ public class CompanyUserControllerTests {
 	@Test
 	public void registerUser() {
 		try {
-		RegisterCompanyUserModel registerCompanyUserModel = new RegisterCompanyUserModel();
-		registerCompanyUserModel.setUser("test");
-		registerCompanyUserModel.setPassword("!@#$");
+	
+		RegisterCompanyUserModel registerCompanyModel = new RegisterCompanyUserModel();
+		registerCompanyModel.setUser("test");
+		registerCompanyModel.setPassword("!@#$");
 		
-		RegisterCompanyUserDTO registerCompanyUserDTO = new RegisterCompanyUserDTO();
-		registerCompanyUserDTO.setUser("test");
-		registerCompanyUserDTO.setPassword("!@#$");
-		
-		Mockito.when(companyUserService.registerCompanyUser(registerCompanyUserDTO)).thenReturn(true);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/company-user/register",registerCompanyUserModel).accept(MediaType.APPLICATION_JSON);
+		Mockito.when(companyUserService.registerCompanyUser(any(RegisterCompanyUserDTO.class))).thenReturn(true);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/company-user/register").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(asJsonString(registerCompanyModel));
 		ResultActions actions = mockMvc.perform(requestBuilder);
 		actions.andExpect(MockMvcResultMatchers.status().isOk());
 		actions.andExpect(content().json("{\n" + 
@@ -75,4 +74,11 @@ public class CompanyUserControllerTests {
 		}
 	}
 	
+	public static String asJsonString(final Object obj) {
+	    try {
+	        return new ObjectMapper().writeValueAsString(obj);
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+}
 }

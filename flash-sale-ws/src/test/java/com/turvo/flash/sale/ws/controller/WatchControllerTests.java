@@ -20,6 +20,8 @@ import com.turvo.flash.sale.ws.dto.OrderWatchDTO;
 import com.turvo.flash.sale.ws.model.request.OrderWatchRequestModel;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
 import com.turvo.flash.sale.ws.service.WatchService;
+import static org.mockito.ArgumentMatchers.any;
+
 
 @WebMvcTest
 @RunWith(SpringRunner.class)
@@ -37,19 +39,18 @@ public class WatchControllerTests {
 	
 	@Test
 	public void purchase() {
-		OrderWatchDTO orderWatchDto = new OrderWatchDTO();
 		
-		Mockito.when(watchService.purchaseWatch(orderWatchDto)).thenReturn(true);
+		Mockito.when(watchService.purchaseWatch(any(OrderWatchDTO.class))).thenReturn(true);
 		try {
 			OrderWatchRequestModel orderWatchRequestModel = new OrderWatchRequestModel();
 			orderWatchRequestModel.setWatch(1l);
-			orderWatchRequestModel.setEmail("ayushi.138@gmail.com");
+			orderWatchRequestModel.setEmail("xyz@xyz.com");
 			orderWatchRequestModel.setAddress("abc");
-			RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watch/purchase",orderWatchRequestModel).accept(MediaType.APPLICATION_JSON);
+			RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watch/purchase",orderWatchRequestModel).accept(MediaType.APPLICATION_JSON).content(CompanyUserControllerTests.asJsonString(orderWatchRequestModel));
 			ResultActions actions = mockMvc.perform(requestBuilder);
 			actions.andExpect(MockMvcResultMatchers.status().isOk());
 			actions.andExpect(content().json("{\n" + 
-					"    \"operationType\": \"REGISTER_USER\",\n" + 
+					"    \"operationType\": \"PURCHASE_WATCH\",\n" + 
 					"    \"operationStatus\": \"SUCCESS\"\n" + 
 					"}"));
 		

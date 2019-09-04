@@ -75,22 +75,4 @@ public class CompanyUserController {
 	}
 	return operationResponse;
 	}
-	/*
-	 * 
-	 * @PostMapping(path = "/purchase", produces =
-	 * {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE}, consumes
-	 * = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE}) public
-	 * OperationResponse purchaseWatch(@RequestBody RegisterCompanyUserModel
-	 * registerCompanyUserRequestModel) { OperationResponse operationResponse = new
-	 * OperationResponse();
-	 * operationResponse.setOperationType(OperationType.PURCHASE_WATCH.name());
-	 * RegisterCompanyUserDTO registerCompanyUserDTO = new RegisterCompanyUserDTO();
-	 * BeanUtils.copyProperties(registerCompanyUserRequestModel,
-	 * registerCompanyUserDTO); boolean
-	 * registeredSuccessfully=companyUserService.registerCompanyUser(
-	 * registerCompanyUserDTO); if(registeredSuccessfully) {
-	 * operationResponse.setOperationStatus(OperationStatus.SUCCESS.name()); } else
-	 * { operationResponse.setOperationStatus(OperationStatus.ERROR.name()); }
-	 * return operationResponse; }
-	 */
 }

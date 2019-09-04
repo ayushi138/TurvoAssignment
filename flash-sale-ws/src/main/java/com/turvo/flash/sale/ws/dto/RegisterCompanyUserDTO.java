@@ -21,6 +21,4 @@ public class RegisterCompanyUserDTO implements Serializable{
 
 	private String user;
 	private String password;
-	
-	
 }
