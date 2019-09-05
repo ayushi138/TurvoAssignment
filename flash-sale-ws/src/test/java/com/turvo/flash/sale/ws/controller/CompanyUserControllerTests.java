@@ -52,27 +52,28 @@ public class CompanyUserControllerTests {
 		}
 	}
 	
-	@Test
-	public void registerUser() {
-		try {
 	
-		RegisterCompanyUserModel registerCompanyModel = new RegisterCompanyUserModel();
-		registerCompanyModel.setUser("test");
-		registerCompanyModel.setPassword("!@#$");
-		
-		Mockito.when(companyUserService.registerCompanyUser(any(RegisterCompanyUserDTO.class))).thenReturn(true);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/company-user/register").accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON).content(asJsonString(registerCompanyModel));
-		ResultActions actions = mockMvc.perform(requestBuilder);
-		actions.andExpect(MockMvcResultMatchers.status().isOk());
-		actions.andExpect(content().json("{\n" + 
-				"    \"operationType\": \"REGISTER_USER\",\n" + 
-				"    \"operationStatus\": \"SUCCESS\"\n" + 
-				"}"));
-		}
-		catch (Exception e) {
+	  @Test 
+	  public void registerUser() { 
+		  try {
+
+			RegisterCompanyUserModel registerCompanyModel = new RegisterCompanyUserModel();
+			registerCompanyModel.setUser("test");
+			registerCompanyModel.setPassword("!@#$");
+
+			Mockito.when(companyUserService.registerCompanyUser(any(RegisterCompanyUserDTO.class))).thenReturn(true);
+			RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/company-user/register")
+					.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
+					.content(asJsonString(registerCompanyModel));
+			ResultActions actions = mockMvc.perform(requestBuilder);
+			actions.andExpect(MockMvcResultMatchers.status().isOk());
+			actions.andExpect(content().json("{\n" + "    \"operationType\": \"REGISTER_USER\",\n"
+					+ "    \"operationStatus\": \"SUCCESS\"\n" + "}"));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	 
 	
 	public static String asJsonString(final Object obj) {
 	    try {
