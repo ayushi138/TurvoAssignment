@@ -55,7 +55,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter{
 			if(user != null) {
 				CompanyUserRepository companyUserRepository=(CompanyUserRepository)springAppContext.getBean("companyUserRepository");
 				CompanyUserEntity findByEmailAddress = companyUserRepository.findByEmailAddress(user);
-				if(findByEmailAddress.isRegistered())
+				if(findByEmailAddress != null && findByEmailAddress.isRegistered())
 				return new UsernamePasswordAuthenticationToken(user, null,new ArrayList<>());
 			}
 			return null;

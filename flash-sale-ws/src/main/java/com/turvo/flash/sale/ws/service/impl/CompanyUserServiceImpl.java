@@ -1,7 +1,9 @@
 package com.turvo.flash.sale.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.turvo.flash.sale.ws.dto.CompanyUserDTO;
 import com.turvo.flash.sale.ws.dto.RegisterCompanyUserDTO;
+import com.turvo.flash.sale.ws.exceptions.CompanyUserServiceException;
 import com.turvo.flash.sale.ws.io.entity.CompanyUserEntity;
+import com.turvo.flash.sale.ws.model.response.ErrorMessages;
 import com.turvo.flash.sale.ws.repository.CompanyUserRepository;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
 import com.turvo.flash.sale.ws.shared.AmazonSES;
@@ -34,10 +38,17 @@ public class CompanyUserServiceImpl implements CompanyUserService {
 		
 		CompanyUserEntity companyUserEntity = null;
 		
+		if(StringUtils.isBlank(companyUserDto.getFirstName()) 
+				|| StringUtils.isBlank(companyUserDto.getLastName()) 
+				|| StringUtils.isBlank(companyUserDto.getEmailAddress()) 
+				|| StringUtils.isBlank(companyUserDto.getPassword())) {
+			throw new CompanyUserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		}
+		
 		companyUserEntity = companyUserRepository.findByEmailAddress(companyUserDto.getEmailAddress());
 		
 		if(companyUserEntity != null) {
-			throw new RuntimeException("Duplicate User Entity");
+			throw new CompanyUserServiceException(ErrorMessages.RECORD_ALREADY_EXIST.getErrorMessage());
 		}
 		companyUserDto.setPassword(passwordEncoder.encode(companyUserDto.getPassword()));
 		companyUserEntity = new CompanyUserEntity();
@@ -64,6 +75,11 @@ public class CompanyUserServiceImpl implements CompanyUserService {
 	@Override
 	public boolean sendEmailToCompanyUsers() {
 		Iterable<CompanyUserEntity> users = companyUserRepository.findAll();
+		
+		if(((Collection<?>)users).size() ==0) {
+			throw new CompanyUserServiceException(ErrorMessages.NO_USER_PRESENT.getErrorMessage());
+		}
+		
 		CompanyUserDTO companyUserDto = null;
 		
 		for(CompanyUserEntity user:users) {
@@ -77,9 +93,15 @@ public class CompanyUserServiceImpl implements CompanyUserService {
 
 	@Override
 	public boolean registerCompanyUser(RegisterCompanyUserDTO registerCompanyUserDTO) {
+		
 		CompanyUserEntity userEntity = companyUserRepository.findByEmailAddress(registerCompanyUserDTO.getUser());
+		
+		if(userEntity==null) {
+			throw new CompanyUserServiceException(ErrorMessages.INVALID_USER.getErrorMessage());
+		}
+		
 		if(!passwordEncoder.matches(registerCompanyUserDTO.getPassword(),userEntity.getPassword())) {
-			return false;
+			throw new CompanyUserServiceException(ErrorMessages.INVALID_PASSWORD.getErrorMessage());
 		}
 		userEntity.setRegistered(true);
 		companyUserRepository.save(userEntity);

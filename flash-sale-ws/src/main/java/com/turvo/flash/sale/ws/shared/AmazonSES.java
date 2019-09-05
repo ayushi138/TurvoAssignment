@@ -23,14 +23,37 @@ public class AmazonSES {
 	final String SUBJECT="Hurry Up Guys!! Flash Sale in 2 days ";
 	
 	final String HTMLBODY="<h1>Get to choose your favourite watches</h1>"
-			+ "<p>We are happy to announce flash sale on watches which will happen in "+LocalDate.now().plusDays(2)+"</p>"
-			+ "<a href='http://localhost:8080/registration-service/registration.html?emailAddress=$tokenValue1&name=$tokenValue2'>"
-			+ "Click here to register"
-			+ "</a><br/><br/>"
-			+"<p>After you are registered click here to shop!!</p>"
-			+ "<a href='http://localhost:8080/registration-service/login.html?emailAddress=$tokenValue1'>"
-			+ "Click here to Shop"
-			+ "</a><br/>"
+			+ "<p>We are happy to announce flash sale on watches which will happen on "+LocalDate.now().plusDays(2)+"</p>"
+			+"Perform the following steps to register<br/>"
+			+ "1) Open postman and set to PUT request http://localhost:8080/flash-sale-ws/company-user/register\n" + 
+			"<br/>"
+			+ "2) Fill in the body with the json<br/>"
+			+ " {\n" + 
+			"	\"emailAddress\":\"your id\",\n" + 
+			"	\"password\":\"your password\"\n" + 
+			"} <br/>"
+			+ "3) Press enter to send the request"
+			+ "<br/><br/>"
+			+"<p>After you are registered follow these steps to shop!!</p>"
+			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/company-user/login <br/>"
+			+ "2) Fill in the body with the json<br/>"
+			+ " {\n" + 
+			"	\"user\":\"your id\",\n" + 
+			"	\"password\":\"your password\"\n" + 
+			"} <br/>"
+			+ "3) Press enter to send the request<br/>"+
+			"4) Copy the value of Authorization header"+
+			"<br/><br/>"
+			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/watch/purchase <br/>"
+			+"2) Add Authorization value in the request header as the one copied from previous call<br/>"
+			+ "3) Fill in the body with the json<br/>"
+			+ " {\n" + 
+			"	\"email\":\"your id\",\n" + 
+			"	\"watch\":\"watch id\",\n" + 
+			"	\"address\":\"your address\"\n" + 
+			"}<br/>"
+			+ "4) Press enter to send the request"+
+			"<br/><br/>"
 			+ "Thank you!!!! We are waiting";
 	
 	public void sendFlassSaleEmail(CompanyUserDTO companyUserDto) {

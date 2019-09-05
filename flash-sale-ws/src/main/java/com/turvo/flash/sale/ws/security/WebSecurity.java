@@ -26,8 +26,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests().
 		antMatchers(HttpMethod.POST,"/company-user").permitAll().
 		antMatchers(HttpMethod.GET,"/company-user/send-email").permitAll().
-		antMatchers(HttpMethod.POST,"/company-user/register").permitAll().
-		antMatchers(HttpMethod.POST,"/watch").permitAll().
+		antMatchers(HttpMethod.PUT,"/company-user/register").permitAll().
 		anyRequest().authenticated()
 		.and().addFilter(getAuthenticationFilter()).addFilter(new AuthorizationFilter(authenticationManager()))
 		.sessionManagement()
