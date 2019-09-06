@@ -22,6 +22,10 @@ import com.turvo.flash.sale.ws.model.response.OperationType;
 import com.turvo.flash.sale.ws.model.response.WatchResponse;
 import com.turvo.flash.sale.ws.service.WatchService;
 
+/*
+ * Exposes end point URLs for the entity Watch
+ */
+
 @RestController()
 @RequestMapping("/watch")
 public class WatchController {

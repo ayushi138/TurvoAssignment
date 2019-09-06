@@ -20,6 +20,10 @@ import com.turvo.flash.sale.ws.model.response.OperationStatus;
 import com.turvo.flash.sale.ws.model.response.OperationType;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
 
+/*
+ * Exposes end point URLs for the entity Company User
+ */
+
 @RestController()
 @RequestMapping("/company-user")
 public class CompanyUserController {
