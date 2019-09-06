@@ -1,5 +1,6 @@
 package com.turvo.flash.sale.ws.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import org.junit.Test;
@@ -18,12 +19,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.turvo.flash.sale.ws.dto.OrderWatchDTO;
 import com.turvo.flash.sale.ws.model.request.OrderWatchRequestModel;
+import com.turvo.flash.sale.ws.security.AuthenticationFilter;
+import com.turvo.flash.sale.ws.security.AuthorizationFilter;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
 import com.turvo.flash.sale.ws.service.WatchService;
-import static org.mockito.ArgumentMatchers.any;
 
 
-@WebMvcTest
+@WebMvcTest(controllers = WatchController.class , secure = false)
 @RunWith(SpringRunner.class)
 public class WatchControllerTests {
 	
@@ -36,28 +38,33 @@ public class WatchControllerTests {
 	@MockBean
 	private WatchService watchService;
 	
+	@MockBean
+	AuthorizationFilter authorizationFilter;
+	
+	@MockBean
+	AuthenticationFilter authenticationFilter;
 	
 	@Test
 	public void purchase() {
-		
-		Mockito.when(watchService.purchaseWatch(any(OrderWatchDTO.class))).thenReturn(true);
-		try {
-			OrderWatchRequestModel orderWatchRequestModel = new OrderWatchRequestModel();
-			orderWatchRequestModel.setWatch(1l);
-			orderWatchRequestModel.setEmail("xyz@xyz.com");
-			orderWatchRequestModel.setAddress("abc");
-			RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watch/purchase",orderWatchRequestModel).accept(MediaType.APPLICATION_JSON).content(CompanyUserControllerTests.asJsonString(orderWatchRequestModel));
-			ResultActions actions = mockMvc.perform(requestBuilder);
-			actions.andExpect(MockMvcResultMatchers.status().isOk());
-			actions.andExpect(content().json("{\n" + 
-					"    \"operationType\": \"PURCHASE_WATCH\",\n" + 
-					"    \"operationStatus\": \"SUCCESS\"\n" + 
-					"}"));
-		
-		}
-		catch(Exception e) {
-			
-		}
-	}
+		 Mockito.when(watchService.purchaseWatch(any(OrderWatchDTO.class))).thenReturn(true); 
+		 try { 
+			 OrderWatchRequestModel orderWatchRequestModel = new
+			 OrderWatchRequestModel(); 
+			 orderWatchRequestModel.setWatch(1l);
+			 orderWatchRequestModel.setEmail("xyz@xyz.com");
+			 orderWatchRequestModel.setAddress("abc"); 
+			 RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watch/purchase",orderWatchRequestModel)
+					 .accept( MediaType.APPLICATION_JSON)
+					 .content(CompanyUserControllerTests.asJsonString(orderWatchRequestModel));
+			 ResultActions actions = mockMvc.perform(requestBuilder);
+			 actions.andExpect(MockMvcResultMatchers.status().isOk());
+			 actions.andExpect(content().json("{\n" +
+					 "    \"operationType\": \"PURCHASE_WATCH\",\n" +
+					 "    \"operationStatus\": \"SUCCESS\"\n" + "}"));
+			 System.out.println("Done");
+		 	} catch(Exception e) {
+		  
+		  }
+		 }
 	
 }

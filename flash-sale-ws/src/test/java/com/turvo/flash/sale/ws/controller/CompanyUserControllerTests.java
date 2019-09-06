@@ -1,7 +1,7 @@
 package com.turvo.flash.sale.ws.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +21,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.turvo.flash.sale.ws.dto.RegisterCompanyUserDTO;
 import com.turvo.flash.sale.ws.model.request.RegisterCompanyUserModel;
 import com.turvo.flash.sale.ws.service.CompanyUserService;
-import com.turvo.flash.sale.ws.service.WatchService;
 
-@WebMvcTest
+@WebMvcTest(controllers = CompanyUserController.class)
 @RunWith(SpringRunner.class)
 public class CompanyUserControllerTests {
 	
@@ -32,9 +31,6 @@ public class CompanyUserControllerTests {
 	
 	@MockBean
 	private CompanyUserService companyUserService;
-	
-	@MockBean
-	private WatchService watchService;
 	
 	@Test
 	public void sendEmail() {
