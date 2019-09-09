@@ -32,15 +32,36 @@ Steps for Running this App
 username = root
 pwd = password
 
-2) execute the jar with the command
+2) Create a file without any extension with name credentials, having data present in the credentials file in the encrypted form given in the root folder. Password to unlock the file has been provided in the email. 
+
+On the local where this file is checked out, open terminal and do 
+
+vi credentials
+
+It will ask for the password, provide the password given in email. And copy the data from that file onto the credentials file created at the below mentioned location.
+
+This is the secret key and password used for sending email.
+
+For Linux/Ubuntu/macOS based systems place this file in the location 
+
+~/.aws/credemtials
+
+For windows based file place this file in the location 
+
+c:\Users\USERNAME\.aws\credentials
+
+Note: Do not inlcude file extension while saving credentials file.
+      These credentials cannot be shared publicly on github
+
+3) execute the jar with the command
 
 java -jar flash-sale-ws.jar
 
 Execute the above command where this jar is placed
 
-3) This will start the spring boot application, now the steps mentioned in the section how to use Flash Sale WS can be performed
+4) This will start the spring boot application, now the steps mentioned in the section how to use Flash Sale WS can be performed
 
-4) Add the following dummy data to get started once the app is running
+5) Add the following dummy data to get started once the app is running
 
 insert into flash_sale.company_users values(1,'ayushi.138@gmail.com','Ayushi','Srivastava',false,'ayushi'),
 (2,'ayushi.cs3@gmail.com','Manu','Srivastava',false,'manu'),
