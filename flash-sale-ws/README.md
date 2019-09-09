@@ -192,7 +192,14 @@ http://localhost:8080/flash-sale-ws/watch
 
 Note: For all the secured URLs please add the Authorization token as the Header parameter
 
+-----------------------------------------------------------------------------------------------
 
+Postman collection for the requests can be found at 
+
+https://www.getpostman.com/collections/0c58238ca9a8fb8abf10
+
+
+-----------------------------------------------------------------------------------------------
 
 
 
