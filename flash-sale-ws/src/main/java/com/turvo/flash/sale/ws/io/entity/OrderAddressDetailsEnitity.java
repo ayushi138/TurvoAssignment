@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "order_detail")
@@ -17,9 +18,11 @@ public class OrderAddressDetailsEnitity implements Serializable{
 	private Long id;
 	
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private CompanyUserEntity companyUserEntity;
 	
 	@ManyToOne
+	@JoinColumn(name="watch_id")
 	private WatchEntity watchEntity;
 	
 	@Column
