@@ -53,7 +53,7 @@ public class WatchControllerTests {
 			 orderWatchRequestModel.setWatch(1l);
 			 orderWatchRequestModel.setEmail("xyz@xyz.com");
 			 orderWatchRequestModel.setAddress("abc"); 
-			 RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watch/purchase",orderWatchRequestModel)
+			 RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/watches/purchase",orderWatchRequestModel)
 					 .accept( MediaType.APPLICATION_JSON)
 					 .content(CompanyUserControllerTests.asJsonString(orderWatchRequestModel));
 			 ResultActions actions = mockMvc.perform(requestBuilder);

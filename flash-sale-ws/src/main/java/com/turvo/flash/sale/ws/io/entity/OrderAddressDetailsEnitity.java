@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "order_detail")
 public class OrderAddressDetailsEnitity implements Serializable{
 
 	private static final long serialVersionUID = 7752878972112017076L;

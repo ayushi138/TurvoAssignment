@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name="watch")
 public class WatchEntity implements Serializable{
 
 	private static final long serialVersionUID = 7798011817356131378L;

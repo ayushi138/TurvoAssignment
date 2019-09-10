@@ -27,7 +27,7 @@ import com.turvo.flash.sale.ws.service.WatchService;
  */
 
 @RestController()
-@RequestMapping("/watch")
+@RequestMapping("/watches")
 public class WatchController {
 	
 	@Autowired

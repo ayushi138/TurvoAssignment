@@ -25,7 +25,7 @@ public class AmazonSES {
 	final String HTMLBODY="<h1>Get to choose your favourite watches</h1>"
 			+ "<p>We are happy to announce flash sale on watches which will happen on "+LocalDate.now().plusDays(2)+"</p>"
 			+"Perform the following steps to register<br/>"
-			+ "1) Open postman and set to PUT request http://localhost:8080/flash-sale-ws/company-user/register\n" + 
+			+ "1) Open postman and set to PATCH request http://localhost:8080/flash-sale-ws/users/register\n" + 
 			"<br/>"
 			+ "2) Fill in the body with the json<br/>"
 			+ " {\n" + 
@@ -35,7 +35,7 @@ public class AmazonSES {
 			+ "3) Press enter to send the request"
 			+ "<br/><br/>"
 			+"<p>After you are registered follow these steps to shop!!</p>"
-			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/company-user/login <br/>"
+			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/users/login <br/>"
 			+ "2) Fill in the body with the json<br/>"
 			+ " {\n" + 
 			"	\"user\":\"your id\",\n" + 
@@ -44,7 +44,7 @@ public class AmazonSES {
 			+ "3) Press enter to send the request<br/>"+
 			"4) Copy the value of Authorization header"+
 			"<br/><br/>"
-			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/watch/purchase <br/>"
+			+ "1) Open postman and set to POST request http://localhost:8080/flash-sale-ws/watches/purchase <br/>"
 			+"2) Add Authorization value in the request header as the one copied from previous call<br/>"
 			+ "3) Fill in the body with the json<br/>"
 			+ " {\n" + 

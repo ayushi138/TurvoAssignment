@@ -24,9 +24,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().
-		antMatchers(HttpMethod.POST,"/company-user").permitAll().
-		antMatchers(HttpMethod.GET,"/company-user/send-email").permitAll().
-		antMatchers(HttpMethod.PUT,"/company-user/register").permitAll().
+		antMatchers(HttpMethod.POST,"/users").permitAll().
+		antMatchers(HttpMethod.GET,"/users/send-email").permitAll().
+		antMatchers(HttpMethod.PATCH,"/users/register").permitAll().
 		anyRequest().authenticated()
 		.and().addFilter(getAuthenticationFilter()).addFilter(new AuthorizationFilter(authenticationManager()))
 		.sessionManagement()
@@ -44,7 +44,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 				
 		try {
 			filter=	new AuthenticationFilter(authenticationManager());
-			filter.setFilterProcessesUrl("/company-user/login");
+			filter.setFilterProcessesUrl("/users/login");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -36,7 +36,7 @@ public class CompanyUserControllerTests {
 	public void sendEmail() {
 		try {
 		Mockito.when(companyUserService.sendEmailToCompanyUsers()).thenReturn(true);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/company-user/send-email").accept(MediaType.APPLICATION_JSON);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/send-email").accept(MediaType.APPLICATION_JSON);
 		ResultActions actions = mockMvc.perform(requestBuilder);
 		actions.andExpect(MockMvcResultMatchers.status().isOk());
 		actions.andExpect(content().json("{\n" + 
@@ -58,7 +58,7 @@ public class CompanyUserControllerTests {
 			registerCompanyModel.setPassword("!@#$");
 
 			Mockito.when(companyUserService.registerCompanyUser(any(RegisterCompanyUserDTO.class))).thenReturn(true);
-			RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/company-user/register")
+			RequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/users/register")
 					.accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON)
 					.content(asJsonString(registerCompanyModel));
 			ResultActions actions = mockMvc.perform(requestBuilder);

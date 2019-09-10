@@ -32,6 +32,10 @@ Steps for Running this App
 username = root
 pwd = password
 
+Execute the script 
+
+create schema flash_sale;
+
 2) Create a file without any extension with name credentials, having data present in the credentials file in the encrypted form given in the root folder. Password to unlock the file has been provided in the email. 
 
 On the local where this file is checked out, open terminal and do 
@@ -63,7 +67,7 @@ Execute the above command where this jar is placed
 
 5) Add the following dummy data to get started once the app is running
 
-insert into flash_sale.company_users values(1,'ayushi.138@gmail.com','Ayushi','Srivastava',false,'ayushi'),
+insert into flash_sale.user(id,email_address,first_name,last_name,registered,password) values(1,'ayushi.138@gmail.com','Ayushi','Srivastava',false,'ayushi'),
 (2,'ayushi.cs3@gmail.com','Manu','Srivastava',false,'manu'),
 (3,'arpitsrivastava89@gmail.com','Arpit','Srivastava',false,'arpit'),
 (4,'ayushi.srivastava@imaginea.com','Ayushi','Srivastava',false,'ayushi'),
@@ -74,7 +78,7 @@ insert into flash_sale.company_users values(1,'ayushi.138@gmail.com','Ayushi','S
 (9,'ghi@gmail.com','Ghi','Pqr',false,'ghi'),
 (10,'mno@gmail.com','Mno','Srivastava',false,'mno');
 
-insert into flash_sale.watch_entity values(1,2000,2,'Fossil');
+insert into flash_sale.watch values(1,2000,2,'Fossil');
 
 
 Steps for locally executing the code from IDE
@@ -112,7 +116,7 @@ How to use Flash Sale WS
 
  POST request                 //Unsecured URL 
 
-  http://localhost:8080/flash-sale-ws/company-user
+  http://localhost:8080/flash-sale-ws/users
 
 {
 	"firstName":"Ayushi",
@@ -125,19 +129,19 @@ How to use Flash Sale WS
 																											
 GET request                     //Unsecured URL
 
- http://localhost:8080/flash-sale-ws/company-user/send-email
+ http://localhost:8080/flash-sale-ws/users/send-email
 
 
 3) Open the mail box to check for the mail
 
 Send a request to register
 																										
-PUT request                   //Unsecured URL
+PATCH request                   //Unsecured URL
 
- http://localhost:8080/flash-sale-ws/company-user/register
+ http://localhost:8080/flash-sale-ws/users/register
 
 {
-	"emailAddress":"ayushi.138@gmail.com",
+	"user":"ayushi.138@gmail.com",
 	"password":"ayushi"
 }
 
@@ -147,7 +151,7 @@ remember this password as this is required to login to purchase
  
 POST                                                     //Unsecured URL but requires user to be registered
 
-http://localhost:8080/flash-sale-ws/company-user/login     
+http://localhost:8080/flash-sale-ws/users/login     
  {
 	"user":"ayushi.138@gmail.com",
 	"password":"ayushi"
@@ -161,7 +165,7 @@ Once this is sent an Authorization header is returned, which is used in the subs
  
  POST                                            //Secured URL
 
- http://localhost:8080/flash-sale-ws/watch/purchase
+ http://localhost:8080/flash-sale-ws/watches/purchase
 
  {
 	"email":"ayushi.138@gmail.com",
@@ -175,7 +179,7 @@ In the Headers add  Authorization with the token which comes from the previous c
 
 POST            			 //Secured URL
 
-  http://localhost:8080/flash-sale-ws/watch
+  http://localhost:8080/flash-sale-ws/watches
 
 {
 	"name":"Fossil",
@@ -188,7 +192,7 @@ POST            			 //Secured URL
 
 GET 				  //Secured URL
 	
-http://localhost:8080/flash-sale-ws/watch
+http://localhost:8080/flash-sale-ws/watches
 
 Note: For all the secured URLs please add the Authorization token as the Header parameter
 
@@ -196,7 +200,7 @@ Note: For all the secured URLs please add the Authorization token as the Header 
 
 Postman collection for the requests can be found at 
 
-https://www.getpostman.com/collections/0c58238ca9a8fb8abf10
+https://www.getpostman.com/collections/b29c5ed9d8c5dabd38d0
 
 
 -----------------------------------------------------------------------------------------------
