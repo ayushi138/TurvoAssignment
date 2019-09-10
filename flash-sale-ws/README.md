@@ -25,6 +25,12 @@ Technology Used
 7) Amazon Web Service Send Email Service
 8) Apache commons lang
 
+ER Diagram mfor Flash Sale
+
+![FlashSaleERDiagram](https://user-images.githubusercontent.com/54666594/64593184-3d31b380-d3cb-11e9-98cd-7842a6ac933b.png)
+
+
+
 Steps for Running this App
 
 1) Install Mysql database and set following credentials
